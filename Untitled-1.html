@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vipers Zumbi</title>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="wrap">
+  <canvas id="c" width="900" height="450"></canvas>
+  <button id="skill" hidden></button> 
+    <div id="bar">
+  <button id="b-full" class="gbtn" title="Tela cheia (F)">⛶ TELA CHEIA</button>
+  <button id="b-quit" class="gbtn" title="Sair para o menu">⏏ MENU</button>
+</div>
+  <button id="b-full" class="gbtn" title="Tela cheia (F)">⛶ TELA CHEIA</button>
+  <button id="b-quit" class="gbtn" title="Voltar ao menu (Esc)">⏏ MENU</button>
+</div>
+
+  <div id="ov">
+    <div class="sc" id="s-menu">
+      <h1>VIPERS ZUMBI</h1>
+      <button id="b-play">Jogar</button>
+      <button id="b-pick" class="alt">Escolher zumbi</button>
+      <button id="b-set" class="alt">Configurações</button>
+      <button id="b-exit" class="alt">Sair</button>
+    </div>
+    <div class="sc" id="s-pick" hidden>
+      <h1>Escolha seu zumbi</h1>
+      <div id="grid"></div>
+      <p id="pname"></p>
+      <button id="b-pickok">Confirmar</button>
+    </div>
+    <div class="sc" id="s-set" hidden>
+      <h1>Configurações</h1>
+      <label>Música <input type="range" id="r-m" min="0" max="100"></label>
+      <label>Efeitos <input type="range" id="r-s" min="0" max="100"></label>
+      <label><input type="checkbox" id="c-mute"> Silenciar tudo</label>
+      <button id="b-back">Voltar</button>
+    </div>
+    <div class="sc" id="s-over" hidden>
+      <h1>A HORDA CAIU</h1>
+      <p id="d-over"></p>
+      <button id="b-again">Jogar de novo</button>
+      <button id="b-menu" class="alt">Menu</button>
+    </div>
+    <div class="sc" id="s-bye" hidden>
+      <h1>Até logo!</h1>
+      <p>Obrigado por jogar. Você já pode fechar esta aba.</p>
+      <button id="b-hello">Voltar ao menu</button>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script><script src="script.js"></script>
+<script>
+(function () {
+  const btn = document.getElementById('b-quit');
+
+  function sairParaMenu() {
+    reset();          // zera a partida e tira a pausa
+    st = 'menu';
+    music(true);
+    show('s-menu');
+  }
+
+  // Impede que o clique no botão também dispare o pulo
+  btn.addEventListener('pointerdown', ev => ev.stopPropagation());
+
+  btn.addEventListener('click', () => {
+    audio();
+    sfx.click();
+    btn.blur();
+    sairParaMenu();
+  });
+
+  // Só aparece durante a partida (pausado continua com st === 'play')
+  setInterval(() => { btn.hidden = st !== 'play'; }, 200);
+})();
+</script>
+<script src="cenarios.js"></script>
+</body>
+</html>
